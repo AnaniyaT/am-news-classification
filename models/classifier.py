@@ -1,7 +1,8 @@
 import torch
 import torch.nn as nn
-from torch.utils.data import TensorDataset, DataLoader
 
+from sklearn.feature_extraction.text import TfidfVectorizer
+from torch.utils.data import TensorDataset, DataLoader
 
 class Lambda(nn.Module):
     def __init__(self, func):
@@ -12,11 +13,15 @@ class Lambda(nn.Module):
         return self.func(x)
 
 
+def resize(x):
+    return x.view(x.size(0), -1)
+
+
 class AmNewsClassifier(nn.Module):
     def __init__(self, input_size: int, hidden_sizes: list[int], output_size: int):
         super().__init__()
         self.net = nn.Sequential(
-            Lambda(lambda x: x.view(x.size(0), -1)),
+            Lambda(resize),
             nn.Linear(input_size, hidden_sizes[0]),
             nn.ReLU(),
             *[
@@ -79,7 +84,19 @@ class AmNewsClassifier(nn.Module):
         return accuracy
 
 
+class SavedModel:
+    def __init__(self, model: AmNewsClassifier, mapping: dict[int, str]):
+        self.model = model
+        self.mapping = mapping
+
+    def predict(self, text: str, vectorizer: TfidfVectorizer) -> str:
+        vector = torch.Tensor([vectorizer.transform([text]).toarray()])
+        res = self.model.predict(vector)
+        return self.mapping[res[0].item()]
+
+        
 def load_dataset(X: any, y: any, batch_size: int = 32, shuffle: bool = True) -> DataLoader:
     X, y = torch.tensor(X).float(), torch.tensor(y).long()
     dataset = TensorDataset(X, y)
     return DataLoader(dataset, batch_size=batch_size, shuffle=shuffle)
+

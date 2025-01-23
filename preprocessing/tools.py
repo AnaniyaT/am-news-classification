@@ -1,7 +1,7 @@
 import re
 from typing import Union
 
-DEFAULT_STOPWORDS_PATH = "data/stopwords-am.txt"
+DEFAULT_STOPWORDS_PATH = "../data/stopwords-am.txt"
 
 def remove_punctuation(text: str) -> str:
     """removes punctuations from a given amharic text"""

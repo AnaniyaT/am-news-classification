@@ -2,4 +2,7 @@ bs4
 torch
 numpy
 pandas
-sklearn
+scikit-learn
+flask
+Flask-Cors
+Flask-RESTful
