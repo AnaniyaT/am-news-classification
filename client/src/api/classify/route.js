@@ -1,7 +1,5 @@
-export async function POST(req) {
+export async function POST() {
   try {
-    const { text } = await req.json();
-
     const categoryMap = {
       "Local News": "የሀገር ውስጥ ዜና",
       Politics: "ፖለቲካ",
@@ -17,7 +15,7 @@ export async function POST(req) {
       status: 200,
       headers: { "Content-Type": "application/json" },
     });
-  } catch (error) {
+  } catch {
     return new Response(JSON.stringify({ error: "ጽሑፉን መመደብ ላይ ስህተት ተፈጥሯል" }), {
       status: 500,
       headers: { "Content-Type": "application/json" },
