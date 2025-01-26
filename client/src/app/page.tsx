@@ -57,7 +57,7 @@ export default function Home() {
       </nav>
 
       <main
-        className="flex flex-col items-center justify-center max-h-screen w-full"
+        className="flex flex-col items-center justify-center max-h-screen w-full pb-16"
         style={{ fontFamily: "Poppins, sans-serif" }}
       >
         <p className="text-green-800">ምሳሌዎችን ለመጠቀም ጠቅ ያድርጉ</p>
@@ -92,7 +92,7 @@ export default function Home() {
           {loading ? "በምደባ ላይ..." : "መድብ"}
         </button>
         {category && (
-          <p className="mt-6 text-lg text-green-700">
+          <p className="mt-6 text-xl text-green-700">
             <strong>ምድብ:</strong> {category}
           </p>
         )}
