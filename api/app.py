@@ -22,7 +22,7 @@ def create_app():
         "/classify"
     )
     
-    cors = CORS(resources={r'/api/*': {'origins': '*'}})
+    cors = CORS(resources={r'/*': {'origins': '*'}})
     cors.init_app(app)
     
     return app
