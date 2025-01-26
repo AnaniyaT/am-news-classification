@@ -10,7 +10,7 @@ export default function Home() {
   const classifyText = async () => {
     setLoading(true);
     try {
-      const response = await fetch("http://localhost:4000/classify", {
+      const response = await fetch(process.env.NEXT_PUBLIC_MODEL_URL ?? "http://localhost:4000/classify", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ text }),
@@ -56,7 +56,7 @@ export default function Home() {
         <textarea
           value={text}
           onChange={(e) => setText(e.target.value)}
-          className="border border-green-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 rounded-lg p-4 mb-6 w-3/4 md:w-1/2 h-32 shadow-sm text-green-700"
+          className="border border-green-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 rounded-lg p-4 mb-6 w-3/4 md:w-1/2 h-96 shadow-sm text-green-700"
           placeholder="ጽሑፉን ለመመደብ ያስገቡ"
         />
         <button
